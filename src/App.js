@@ -25,16 +25,16 @@ class App extends Component {
         if (this.state.clicked.indexOf(id) === -1) {
             this.state.clicked.push(id);
             console.log("CLICKED");
-            console.log(this.state.clicked);
+            //console.log(this.state.clicked);
 
             const newScore = this.state.score + 1;
             this.setState({ score: newScore });
-            console.log(this.state.clicked);
-            this.shuffle(this.state.clicked);
-            console.log(this.state.clicked);
-           // this.render();
+            //console.log(this.state.clicked);
+            this.shuffle();
+            //console.log(this.state.clicked);
+            this.render();
 
-            console.log(this.state.score);
+            //console.log(this.state.score);
         } else {
             alert("Already clicked!");
             const newScore = 0;
@@ -45,7 +45,8 @@ class App extends Component {
 
     }
 
-    shuffle = (a) => {
+    shuffle = () => {
+        let a = this.state.friends;
         for (let i = a.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [a[i], a[j]] = [a[j], a[i]];
@@ -53,31 +54,25 @@ class App extends Component {
         return a;
     }
 
- 
-
-
-
-
-
     // Map over this.state.friends and render a FriendCard component for each friend object
     render() {
-        return ( <Wrapper>
-          <Title > Friends List | Score: { this.state.score } </Title> {
-                this.state.friends.map(friend => ( <
-                    FriendCard incrementClick = { this.incrementClick }
-                    removeFriend = { this.removeFriend }
-                    clicks = { friend.clicks }
-                    id = { friend.id }
-                    key = { friend.id }
-                    name = { friend.name }
-                    image = { friend.image }
-                    />
-                ))
-            }
+        return (  <Wrapper>
+        <Title> Friends List | Score: { this.state.score } </Title> {
+            this.state.friends.map(friend => ( <
+                FriendCard incrementClick = { this.incrementClick }
+                removeFriend = { this.removeFriend }
+                clicks = { friend.clicks }
+                id = { friend.id }
+                key = { friend.id }
+                name = { friend.name }
+                image = { friend.image }
+                />
+            ))
+        }
 
-            </Wrapper>
-        );
-    }
+        </Wrapper>
+    );
+}
 }
 
 export default App;
